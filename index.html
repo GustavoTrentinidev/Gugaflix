@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de filmes</title>
+    <script src="https://unpkg.com/sweetalert2@9/dist/sweetalert2.all.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="shortcut icon" href="images/icon.png"/> 
+</head>
+<body class="text-danger bg-dark">
+    <div id="page" class="d-flex">
+        <div id="sidebar" class="bg-dark border-right border-danger">
+            <header>My FilmList</header>
+            <nav class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action bg-dark border-danger text-danger">
+                    Dashboard
+                </a>
+                <a href="profile.html" class="list-group-item list-group-item-action bg-dark border-danger text-danger">
+                    Perfil
+                </a>
+                <a href="#" onclick="logout()" class="list-group-item list-group-item-action bg-dark text-danger">
+                    Sair
+                </a>
+            </nav>
+        </div>
+        <div id="page-content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom border-danger ">
+                <button id="sidebar-toggle" class="btn btn-danger">Menu</button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" arie-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto mt-2 bg">
+                        <li class="nav-item active">
+                            <a href="index.html" class="nav-link text-danger">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" id=navbarDropdown role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  class="nav-link dropdown-toggle text-danger">
+                                Meu Usuário
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right border-danger bg-dark" aria-labelledby="navbarDropdown">
+                                <a href="profile.html" class="dropdown-item text-danger">Perfil</a>
+                                <div class="dropdown-divider border-danger"></div>
+                                <a href="#" onclick="logout()" class="dropdown-item text-danger">Sair</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <h1 class="mt-4">Minha lista de filmes</h1>
+                <div class="row d-flex flex-column">
+                    <input id="newItem" name="newItem" class="form-control col-5 ml-2 border-danger text-danger" type="text" placeholder="Novo Filme (endereço da imagem)">
+                    <div class="d-flex">
+                        <input id="newTrailer" name="newTrailer" class="form-control col-5 ml-2 border-danger text-danger mt-1" type="text" placeholder="Endereço do Trailer (opcional)">
+                        <button class="btn btn-danger ml-1 mt-1" onclick="addTask()" id="adicionar">Adicionar</button>                                                                               
+                <!--    <div class="d-flex justify-content-end pt-3 mr-3 ml-2" >
+                            <input type="checkbox" id="addbuttons" class="ml-1 mr-2" style="width: 25px; height: 25px;" onclick="renderTasks()"> 
+                            <h5 style="color: white;">Excluir</h5>
+                        </div>  -->
+                    </div> 
+                </div>
+                <ul id="itemList" class="d-flex flex-wrap mt-1 bg-dark p-0">
+                    <li class="list-group-item bg-dark">
+                        Carregando...
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+    ></script>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+    ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"
+  ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="./js/init.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/auth.js"></script>
+    <script>
+        $("#sidebar-toggle").click(function (e) {
+          e.preventDefault()
+          $("#page").toggleClass("toggled")
+        })
+    </script>
+</body>
+</html>
